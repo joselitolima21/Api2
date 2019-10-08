@@ -1,19 +1,34 @@
 const Users = require('../models/Users');
 
 exports.get = async (req,res,next) => {
-    const data = await Users.find({});
-    res.status(200).send(data);
+    const { username, password } = req.headers
+
+    const data = await Users.find({username});
+
+    if (!data[0]){
+        res.status(200).send({message: 'user not exist'});
+    }
+    const passwordBack = 'gerentesaero2019'
+    if(password === passwordBack){
+        const message = data[0]
+        res.status(200).send({message});
+    }
+    res.status(200).send({message: 'password wrong'});
 };
 
 exports.post = async (req,res,next) => {
+
     const { username } = req.body;
 
     let user = await Users.findOne({ username: username });
 
     if (!user) {
-        user = await Users.create(req.body);
+        const user = await Users.create(req.body);
+        return res.status(201).json(user);
     }
+
     return res.status(201).json(user);
+
 };
 
 exports.put = async (req,res,next) => {
