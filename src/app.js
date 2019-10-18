@@ -19,11 +19,13 @@ const UserRoute = require('../src/routes/UserRoute.js');
 const ActRoute = require('../src/routes/ActRoute');
 const ListRoute = require('../src/routes/ListRoute');
 const indexRoute = require('../src/routes/indexRoute');
+const validationUserRoute = require('../src/routes/validationUserRoute');
 
 app.use('/',defaultRoute);
 app.use('/users',UserRoute);
 app.use('/activity',ActRoute);
 app.use('/list',ListRoute);
 app.use('/index',indexRoute);
+app.use('/validation',validationUserRoute);
 
 module.exports = app;
